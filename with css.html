@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JavaScript</title>
+    <link rel="stylesheet" href="./style.css">
+    <script>
+        function showSection(sectionId) {
+            const sections = document.querySelectorAll('.content-section');
+            sections.forEach(section => {
+                section.style.display = 'none';
+            });
+            
+            document.getElementById(sectionId).style.display = 'block';
+            
+            document.querySelector('.page-header h1').textContent = 
+                document.getElementById(sectionId).getAttribute('data-title');
+
+            if (sectionId === 'sum') {
+                calculateSum();
+            } else if (sectionId === 'reverse') {
+                reverseString();
+            } else if (sectionId === 'age') {
+                checkAge();
+            }
+        }
+
+        function changeColor() {
+            const colors = ['#FF6B6B', '#4ECDC4', '#45B7D1', '#96CEB4', '#FFEEAD'];
+            const randomColor = colors[Math.floor(Math.random() * colors.length)];
+            document.getElementById('change').style.backgroundColor = randomColor;
+        }
+
+        // [Rest of the JavaScript functions remain the same]
+        function calculateSum() {
+            var numCount = parseInt(window.prompt("Enter how many numbers you want to add:"));
+            var sum = 0;
+            for (var i = 1; i <= numCount; i++) {
+                var num = parseInt(window.prompt("Enter number " + i + ":"));
+                sum += num;
+            }
+            document.getElementById('sumResult').innerHTML = "<h3>The sum of the numbers is " + sum + ".</h3>";
+        }
+
+        function reverseString() {
+            var inputString = prompt("Enter a string:");
+            var reversedString = inputString.split("").reverse().join("");
+            document.getElementById('reverseResult').innerHTML = "<h3>Reversed String: " + reversedString + "</h3>";
+        }
+
+        function checkAge() {
+            var age = prompt("Enter age:");
+            let result = "";
+            if (age <= 12) result = "Child";
+            else if (age > 12 && age <= 19) result = "Teenage";
+            else if (age > 19 && age <= 30) result = "Young";
+            else if (age > 30 && age < 60) result = "Adult";
+            else if (age >= 60) result = "Senior Citizen";
+            
+            document.getElementById('ageResult').innerHTML = `<h3>Age Group: ${result}</h3>`;
+        }
+
+        function calculate(operation) {
+            var a = document.getElementById("aval").value;
+            var b = document.getElementById("bval").value;
+            a = parseFloat(a);
+            b = parseFloat(b);
+            var result;
+    
+            switch (operation) {
+                case 'add':
+                    result = a + b;
+                    break;
+                case 'sub':
+                    result = a - b;
+                    break;
+                case 'mul':
+                    result = a * b;
+                    break;
+                case 'div':
+                    result = b !== 0 ? a / b : "Cannot divide by zero";
+                    break;
+                default:
+                    result = "Invalid operation";
+            }
+    
+            document.getElementById("result").innerHTML = "Result: " + result;
+        }
+
+        function calculateGrade() {
+            let name = document.getElementById("name").value;
+            let marks = [];
+            for (let i = 1; i <= 5; i++) {
+                let mark = parseFloat(document.getElementById("sub" + i).value) || 0;
+                marks.push(mark);
+            }
+            
+            let total = marks.reduce((a, b) => a + b, 0);
+            let percentage = total / 5;
+            let grade;
+            
+            if (percentage >= 90) grade = 'A+';
+            else if (percentage >= 80) grade = 'A';
+            else if (percentage >= 70) grade = 'B';
+            else if (percentage >= 60) grade = 'C';
+            else if (percentage >= 50) grade = 'D';
+            else grade = 'F';
+            
+            document.getElementById("gradeResult").innerHTML = 
+                `Student: ${name} <br> Total Marks: ${total} <br> Percentage: ${percentage.toFixed(2)}% <br> Grade: ${grade}`;
+        }
+    </script>
+</head>
+<body>
+    <header class="blue-header">
+        <div class="logo">
+            <img src="https://srmap.edu.in/file/2019/12/White.png" alt="Logo">
+        </div>
+        <h1>Basic projects with javascript</h1>
+    </header>
+
+    <div class="content-container">
+        <nav class="sidebar">
+            <ul class="nav-menu">
+                <li><a href="#" onclick="showSection('welcome')">Welcome</a></li>
+                <li><a href="#" onclick="showSection('sum')">Sum of Elements</a></li>
+                <li><a href="#" onclick="showSection('reverse')">Reverse a string</a></li>
+                <li><a href="#" onclick="showSection('change')">Change background colour</a></li>
+                <li><a href="#" onclick="showSection('age')">Display age group</a></li>
+                <li><a href="#" onclick="showSection('calculator')">Calculator</a></li>
+                <li><a href="#" onclick="showSection('grades')">Grade Calculator</a></li>
+            </ul>
+        </nav>
+
+        <main class="main-content">
+            <div class="page-header">
+                <h1>Welcome</h1>
+            </div>
+
+            <section id="welcome" class="content-section" data-title="Welcome">
+                <h2>Welcome</h2>
+                <p>Welcome to my personal website! This platform showcases a collection of simple yet interesting JavaScript projects that demonstrate my coding skills and creativity.</p>
+            </section>
+
+            <section id="sum" class="content-section" style="display: none;" data-title="Sum of Elements">
+                <div id="sumResult"></div>
+            </section>
+
+            <section id="reverse" class="content-section" style="display: none;" data-title="Reverse a String">
+                <div id="reverseResult"></div>
+            </section>
+
+            <section id="change" class="content-section" style="display: none; background-color: #FF6B6B;" data-title="Change Background Color">
+                <input type="button" value="Change Color" onclick="changeColor()" class="change-color-btn">
+            </section>
+
+            <section id="age" class="content-section" style="display: none;" data-title="Display Age Group">
+                <div id="ageResult"></div>
+            </section>
+
+            <section id="calculator" class="content-section" style="display: none;" data-title="Calculator">
+                <h2>Basic Calculator</h2><br>
+                Enter 1st value: <input type="text" id="aval"/><br><br>
+                Enter 2nd value: <input type="text" id="bval"/><br><br>
+            
+                <input type="button" value="Add" onclick="calculate('add')"/>
+                <input type="button" value="Subtract" onclick="calculate('sub')"/>
+                <input type="button" value="Multiply" onclick="calculate('mul')"/>
+                <input type="button" value="Divide" onclick="calculate('div')"/>
+                <br><br>
+                <p id="result"></p>
+            </section>
+
+            <section id="grades" class="content-section" style="display: none;" data-title="Grade Calculator">
+                <h2>Student Grade Calculator</h2>
+                <div>
+                    <div class="form-group">
+                        <label for="name">Student Name:</label>
+                        <input type="text" id="name" placeholder="Student Name">
+                    </div>
+                    <div class="form-group">
+                        <label for="sub1">Marks for Subject 1:</label>
+                        <input type="number" id="sub1" min="0" max="100">
+                    </div>
+                    <div class="form-group">
+                        <label for="sub2">Marks for Subject 2:</label>
+                        <input type="number" id="sub2" min="0" max="100">
+                    </div>
+                    <div class="form-group">
+                        <label for="sub3">Marks for Subject 3:</label>
+                        <input type="number" id="sub3" min="0" max="100">
+                    </div>
+                    <div class="form-group">
+                        <label for="sub4">Marks for Subject 4:</label>
+                        <input type="number" id="sub4" min="0" max="100">
+                    </div>
+                    <div class="form-group">
+                        <label for="sub5">Marks for Subject 5:</label>
+                        <input type="number" id="sub5" min="0" max="100">
+                    </div>
+                    <button onclick="calculateGrade()">Calculate Grade</button>
+                    <h3 id="gradeResult"></h3>
+                </div>
+            </section>
+
+            <footer>
+                <p>&copy; 2025 Vennela Velagapudi. All rights reserved.</p>
+            </footer>
+        </main>
+    </div>
+</body>
+</html>

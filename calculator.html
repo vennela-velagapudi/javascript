@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <script>
+        function calculate(operation) {
+            var a = document.getElementById("aval").value;
+            var b = document.getElementById("bval").value;
+            a = parseFloat(a);
+            b = parseFloat(b);
+            var result;
+
+            switch (operation) {
+                case 'add':
+                    result = a + b;
+                    break;
+                case 'sub':
+                    result = a - b;
+                    break;
+                case 'mul':
+                    result = a * b;
+                    break;
+                case 'div':
+                    result = b !== 0 ? a / b : "Cannot divide by zero";
+                    break;
+                default:
+                    result = "Invalid operation";
+            }
+
+            document.getElementById("result").innerHTML = "Result: " + result;
+        }
+    </script>
+</head>
+<body>
+    <h2>Basic Calculator</h2>
+    Enter 1st value: <input type="text" id="aval"/><br><br>
+    Enter 2nd value: <input type="text" id="bval"/><br><br>
+
+    <input type="button" value="Add" onclick="calculate('add')"/>
+    <input type="button" value="Subtract" onclick="calculate('sub')"/>
+    <input type="button" value="Multiply" onclick="calculate('mul')"/>
+    <input type="button" value="Divide" onclick="calculate('div')"/>
+
+    <p id="result"></p>
+</body>
+</html>
